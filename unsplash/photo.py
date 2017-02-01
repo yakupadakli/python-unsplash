@@ -48,3 +48,22 @@ class Photo(Client):
         url = "/photos/search"
         response = self._get(url, params=params)
         return response.json()
+
+    def random(self, count=1, **kwargs):
+        kwargs.update({"count": count})
+        orientation = kwargs.get("orientation", None)
+        if orientation and orientation not in self.orientation_values:
+            raise Exception()
+        url = "/photos/random"
+        response = self._get(url, params=kwargs)
+        return response.json()
+
+    def stats(self, photo_id):
+        url = "/photos/%s/stats" % photo_id
+        response = self._get(url)
+        return response.json()
+
+    def download(self, photo_id):
+        url = "/photos/%s/download" % photo_id
+        response = self._get(url)
+        return response.json()
