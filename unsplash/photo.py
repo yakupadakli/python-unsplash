@@ -67,3 +67,19 @@ class Photo(Client):
         url = "/photos/%s/download" % photo_id
         response = self._get(url)
         return response.json()
+
+    # ToDo
+    def update(self, photo_id, **kwargs):
+        url = "/photos/%s" % photo_id
+        response = self._put(url, data=kwargs)
+        return response.json()
+
+    def like(self, photo_id):
+        url = "/photos/%s/like" % photo_id
+        response = self._post(url)
+        return response.json()
+
+    def unlike(self, photo_id):
+        url = "/photos/%s/like" % photo_id
+        response = self._delete(url)
+        return response.json()
