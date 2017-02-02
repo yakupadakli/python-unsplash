@@ -1,6 +1,7 @@
 from unsplash.collection import Collection
 from unsplash.photo import Photo
 from unsplash.search import Search
+from unsplash.stat import Stat
 from unsplash.user import User
 
 
@@ -28,3 +29,7 @@ class Api(object):
     @property
     def collection(self):
         return Collection(api=self)
+
+    @property
+    def stat(self):
+        return Stat(api=self)
