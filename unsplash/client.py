@@ -6,14 +6,27 @@ class Client(object):
     def __init__(self, api, **kwargs):
         self.api = api
 
-    def _get(self, url, params=None, **kwargs):
+    def _request(self, url, method, params=None, data=None, **kwargs):
         url = "%s%s" % (self.api.base_url, url)
         headers = self.get_auth_header()
         headers.update(kwargs.get("headers", {}))
-        response = requests.get(url, params=params, headers=headers)
+        response = requests.request(method, url, params=params, data=data, headers=headers)
+
         if not self.is_2xx(response.status_code):
-            raise Exception()
+            raise Exception(response.json().get("errors"))
         return response
+
+    def _get(self, url, params=None, **kwargs):
+        return self._request(url, "get", params=params, **kwargs)
+
+    def _post(self, url, data=None, **kwargs):
+        return self._request(url, "post", data=data, **kwargs)
+
+    def _delete(self, url, **kwargs):
+        return self._request(url, "delete", **kwargs)
+
+    def _put(self, url, data=None, **kwargs):
+        return self._request(url, "put", data=data, **kwargs)
 
     def get_auth_header(self):
         return {"Authorization": "Bearer %s" % self.api.access_token}
