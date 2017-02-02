@@ -1,7 +1,5 @@
-from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib.oauth2_session import OAuth2Session
-
 from unsplash.photo import Photo
+from unsplash.user import User
 
 
 class Api(object):
@@ -14,5 +12,9 @@ class Api(object):
         self.access_token = self._auth.access_token or self._auth.public_access_token
 
     @property
-    def photos(self):
+    def photo(self):
         return Photo(api=self)
+
+    @property
+    def user(self):
+        return User(api=self)
