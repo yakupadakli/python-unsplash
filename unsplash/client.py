@@ -10,7 +10,7 @@ class Client(object):
         url = "%s%s" % (self.api.base_url, url)
         headers = self.get_auth_header()
         headers.update(kwargs.get("headers", {}))
-        response = requests.request(method, url, params=params, data=data, headers=headers)
+        response = requests.request(method, url, params=params, data=data, headers=headers, **kwargs)
 
         if not self.is_2xx(response.status_code):
             raise Exception(response.json().get("errors"))

@@ -1,3 +1,4 @@
+from unsplash.collection import Collection
 from unsplash.photo import Photo
 from unsplash.search import Search
 from unsplash.user import User
@@ -23,3 +24,7 @@ class Api(object):
     @property
     def search(self):
         return Search(api=self)
+
+    @property
+    def collection(self):
+        return Collection(api=self)
