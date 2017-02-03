@@ -9,13 +9,11 @@ class User(Client):
 
     def me(self):
         url = "/me"
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     def update(self, **kwargs):
         url = "/me"
-        response = self._put(url, data=kwargs)
-        return response.json()
+        return self._put(url, data=kwargs)
 
     def get(self, username, width=None, height=None):
         url = "/users/{username}".format(username=username)
@@ -28,8 +26,7 @@ class User(Client):
 
     def portfolio(self, username):
         url = "/users/{username}/portfolio".format(username=username)
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     def _photos(self, url, username, page=1, per_page=10, order_by="latest"):
         if order_by not in self.ordering_values:
@@ -39,8 +36,7 @@ class User(Client):
             "per_page": per_page,
             "order_by": order_by
         }
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)
 
     def photos(self, username, page=1, per_page=10, order_by="latest"):
         url = "/users/{username}/photos".format(username=username)
@@ -56,5 +52,4 @@ class User(Client):
             "page": page,
             "per_page": per_page
         }
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)

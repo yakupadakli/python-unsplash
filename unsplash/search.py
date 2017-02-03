@@ -12,8 +12,7 @@ class Search(Client):
             "page": page,
             "per_page": per_page
         }
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)
 
     def photos(self, query, page=1, per_page=10):
         url = "/search/photos"

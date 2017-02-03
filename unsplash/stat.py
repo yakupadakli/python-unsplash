@@ -8,5 +8,4 @@ class Stat(Client):
 
     def total(self):
         url = "/stats/total"
-        response = self._get(url)
-        return response.json()
+        return self._get(url)

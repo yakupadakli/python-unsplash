@@ -16,8 +16,7 @@ class Photo(Client):
             "per_page": per_page,
             "order_by": order_by
         }
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)
 
     def all(self, page=1, per_page=10, order_by="latest"):
         return self._all("/photos", page=page, per_page=per_page, order_by=order_by)
@@ -32,8 +31,7 @@ class Photo(Client):
             "height": height,
             "rect": rect
         }
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)
 
     def search(self, query, category=None, orientation=None, page=1, per_page=10):
         if orientation and orientation not in self.orientation_values:
@@ -46,8 +44,7 @@ class Photo(Client):
             "per_page": per_page
         }
         url = "/photos/search"
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)
 
     def random(self, count=1, **kwargs):
         kwargs.update({"count": count})
@@ -55,31 +52,25 @@ class Photo(Client):
         if orientation and orientation not in self.orientation_values:
             raise Exception()
         url = "/photos/random"
-        response = self._get(url, params=kwargs)
-        return response.json()
+        return self._get(url, params=kwargs)
 
     def stats(self, photo_id):
         url = "/photos/%s/stats" % photo_id
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     def download(self, photo_id):
         url = "/photos/%s/download" % photo_id
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     # ToDo
     def update(self, photo_id, **kwargs):
         url = "/photos/%s" % photo_id
-        response = self._put(url, data=kwargs)
-        return response.json()
+        return self._put(url, data=kwargs)
 
     def like(self, photo_id):
         url = "/photos/%s/like" % photo_id
-        response = self._post(url)
-        return response.json()
+        return self._post(url)
 
     def unlike(self, photo_id):
         url = "/photos/%s/like" % photo_id
-        response = self._delete(url)
-        return response.json()
+        return self._delete(url)

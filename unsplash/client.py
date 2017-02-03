@@ -11,13 +11,17 @@ class Client(object):
     def _request(self, url, method, params=None, data=None, **kwargs):
         url = "%s%s" % (self.api.base_url, url)
         headers = self.get_auth_header()
-        headers.update(kwargs.get("headers", {}))
-        response = requests.request(method, url, params=params, data=data, headers=headers, **kwargs)
+        headers.update(kwargs.pop("headers", {}))
+
+        try:
+            response = requests.request(method, url, params=params, data=data, headers=headers, **kwargs)
+        except Exception, e:
+            raise UnsplashError("Connection error: %s" % e)
 
         if not self._is_2xx(response.status_code):
             errors = response.json().get("errors")
             raise UnsplashError(errors[0] if errors else None)
-        return response
+        return response.json()
 
     def _get(self, url, params=None, **kwargs):
         return self._request(url, "get", params=params, **kwargs)

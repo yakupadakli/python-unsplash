@@ -11,8 +11,7 @@ class Collection(Client):
             "page": page,
             "per_page": per_page
         }
-        response = self._get(url, params=params)
-        return response.json()
+        return self._get(url, params=params)
 
     def all(self, page=1, per_page=10):
         url = "/collections"
@@ -28,13 +27,11 @@ class Collection(Client):
 
     def get(self, collection_id):
         url = "/collections/%s" % collection_id
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     def get_curated(self, collection_id):
         url = "/collections/curated/%s" % collection_id
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     def photos(self, collection_id, page=1, per_page=10):
         url = "/collections/%s/photos" % collection_id
@@ -46,8 +43,7 @@ class Collection(Client):
 
     def related(self, collection_id):
         url = "/collections/%s/related" % collection_id
-        response = self._get(url)
-        return response.json()
+        return self._get(url)
 
     def create(self, title, description=None, private=False):
         url = "/collections"
@@ -56,8 +52,7 @@ class Collection(Client):
             "description": description,
             "private": private
         }
-        response = self._post(url, data=data)
-        return response.json()
+        return self._post(url, data=data)
 
     def update(self, collection_id, title=None, description=None, private=False):
         url = "/collections/%s" % collection_id
@@ -66,13 +61,11 @@ class Collection(Client):
             "description": description,
             "private": private
         }
-        response = self._put(url, data=data)
-        return response.json()
+        return self._put(url, data=data)
 
     def delete(self, collection_id):
         url = "/collections/%s" % collection_id
-        response = self._delete(url)
-        return response.json()
+        return self._delete(url)
 
     def add_photo(self, collection_id, photo_id):
         url = "/collections/%s/add" % collection_id
@@ -80,8 +73,7 @@ class Collection(Client):
             "collection_id": collection_id,
             "photo_id": photo_id
         }
-        response = self._post(url, data=data)
-        return response.json()
+        return self._post(url, data=data)
 
     def remove_photo(self, collection_id, photo_id):
         url = "/collections/%s/remove" % collection_id
@@ -89,5 +81,4 @@ class Collection(Client):
             "collection_id": collection_id,
             "photo_id": photo_id
         }
-        response = self._delete(url, data=data)
-        return response.json()
+        return self._delete(url, data=data)
