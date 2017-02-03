@@ -1,7 +1,7 @@
-from oauthlib.oauth2 import BackendApplicationClient
+from oauthlib.oauth2 import BackendApplicationClient, OAuth2Error
 from requests_oauthlib.oauth2_session import OAuth2Session
 
-from unsplash.photo import Photo
+from unsplash.error import UnsplashAuthError
 
 
 class Auth(object):
@@ -14,9 +14,7 @@ class Auth(object):
         self.client_id = client_id
         self.client_secret = client_secret
         self.redirect_uri = redirect_uri
-        self.scope = scope
         self.token = None
-
         self.scope_list = [
             "public",
             "read_user",
@@ -28,27 +26,34 @@ class Auth(object):
             "read_collections",
             "write_collections"
         ]
+        self.scope = scope or self.scope_list
 
-        self.oauth = OAuth2Session(client_id=self.client_id, redirect_uri=self.redirect_uri, scope=self.scope_list)
-        self.access_token = self.get_access_token(code=code) if code else None
-
-        self.client = BackendApplicationClient(client_id=self.client_id, scope=self.scope_list)
-        self.public_oauth = OAuth2Session(
-            client_id=self.client_id, client=self.client, redirect_uri=self.redirect_uri, scope=self.scope_list
-        )
-        self.public_access_token = self.get_access_token()
+        try:
+            if code:
+                self.oauth = OAuth2Session(client_id=self.client_id, redirect_uri=self.redirect_uri, scope=self.scope)
+                self.access_token = self.get_access_token(code=code)
+            else:
+                self.client = BackendApplicationClient(client_id=self.client_id, scope=self.scope)
+                self.oauth = OAuth2Session(
+                    client_id=self.client_id, client=self.client, redirect_uri=self.redirect_uri, scope=self.scope
+                )
+                self.access_token = self.get_access_token()
+        except OAuth2Error, e:
+            raise UnsplashAuthError(e)
 
     def get_access_token(self, code=None):
-        oauth = self.oauth if code else self.public_oauth
-        data = oauth.fetch_token(
+        self.token = self.oauth.fetch_token(
             token_url=self.access_token_url,
             client_id=self.client_id,
             client_secret=self.client_secret,
             scope=self.scope,
             code=code
         )
-        self.token = data
-        return data.get("access_token")
+        return self.token.get("access_token")
+
+    def get_refresh_token(self):
+        return self.token.get("refresh_token")
 
     def refresh_token(self):
-        return self.access_token
+        self.token = self.oauth.refresh_token(self.access_token_url, refresh_token=self.get_refresh_token())
+        self.access_token = self.token.get("access_token")

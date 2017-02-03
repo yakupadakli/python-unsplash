@@ -1,5 +1,7 @@
 import requests
 
+from unsplash.error import UnsplashError
+
 
 class Client(object):
 
@@ -12,8 +14,9 @@ class Client(object):
         headers.update(kwargs.get("headers", {}))
         response = requests.request(method, url, params=params, data=data, headers=headers, **kwargs)
 
-        if not self.is_2xx(response.status_code):
-            raise Exception(response.json().get("errors"))
+        if not self._is_2xx(response.status_code):
+            errors = response.json().get("errors")
+            raise UnsplashError(errors[0] if errors else None)
         return response
 
     def _get(self, url, params=None, **kwargs):
@@ -32,21 +35,21 @@ class Client(object):
         return {"Authorization": "Bearer %s" % self.api.access_token}
 
     @staticmethod
-    def is_1xx(status_code):
+    def _is_1xx(status_code):
         return 100 <= status_code <= 199
 
     @staticmethod
-    def is_2xx(status_code):
+    def _is_2xx(status_code):
         return 200 <= status_code <= 299
 
     @staticmethod
-    def is_3xx(status_code):
+    def _is_3xx(status_code):
         return 300 <= status_code <= 399
 
     @staticmethod
-    def is_4xx(status_code):
+    def _is_4xx(status_code):
         return 400 <= status_code <= 499
 
     @staticmethod
-    def is_5xx(status_code):
+    def _is_5xx(status_code):
         return 500 <= status_code <= 599

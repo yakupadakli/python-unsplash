@@ -19,11 +19,11 @@ class Collection(Client):
         return self._all(url, page=page, per_page=per_page)
 
     def featured(self, page=1, per_page=10):
-        url = "/featured"
+        url = "/collections/featured"
         return self._all(url, page=page, per_page=per_page)
 
     def curated(self, page=1, per_page=10):
-        url = "/curated"
+        url = "/collections/curated"
         return self._all(url, page=page, per_page=per_page)
 
     def get(self, collection_id):
