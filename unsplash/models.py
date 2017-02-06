@@ -40,15 +40,12 @@ class Photo(Model):
             elif key == "exif":
                 exif = Exif.parse(value)
                 setattr(photo, key, exif)
-            elif key == "urls":
-                url = Url.parse(value)
-                setattr(photo, key, url)
+            elif key in ["urls", "links"]:
+                link = Link.parse(value)
+                setattr(photo, key, link)
             elif key == "location":
                 location = Location.parse(value)
                 setattr(photo, key, location)
-            elif key == "links":
-                link = Link.parse(value)
-                setattr(photo, key, link)
             else:
                 setattr(photo, key, value)
         return photo
@@ -68,25 +65,11 @@ class Exif(Model):
         return exif
 
 
-class Url(Model):
-
-    def __init__(self, **kwargs):
-        super(Url, self).__init__(**kwargs)
-        self._repr_values = ["raw"]
-
-    @classmethod
-    def parse(cls, data):
-        url = cls()
-        for key, value in data.items():
-            setattr(url, key, value)
-        return url
-
-
 class Link(Model):
 
     def __init__(self, **kwargs):
         super(Link, self).__init__(**kwargs)
-        self._repr_values = ["html"]
+        self._repr_values = ["html", "raw", "url"]
 
     @classmethod
     def parse(cls, data):
