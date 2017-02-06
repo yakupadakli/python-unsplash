@@ -1,4 +1,5 @@
 from unsplash.client import Client
+from unsplash.models import Stat as StatModel
 
 
 class Stat(Client):
@@ -8,4 +9,5 @@ class Stat(Client):
 
     def total(self):
         url = "/stats/total"
-        return self._get(url)
+        result = self._get(url)
+        return StatModel.parse(result)
