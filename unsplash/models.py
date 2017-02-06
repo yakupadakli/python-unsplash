@@ -1,7 +1,7 @@
 
 
 class ResultSet(list):
-    """A list like object that holds results from a Twitter API query."""
+    """A list like object that holds results from a Unsplash API query."""
 
 
 class Model(object):
@@ -34,6 +34,10 @@ class Photo(Model):
     def parse(cls, data):
         photo = cls()
         for key, value in data.items():
+            if not value:
+                setattr(photo, key, value)
+                continue
+
             if key == "user":
                 user = User.parse(value)
                 setattr(photo, key, user)
@@ -103,6 +107,10 @@ class User(Model):
     def parse(cls, data):
         user = cls()
         for key, value in data.items():
+            if not value:
+                setattr(user, key, value)
+                continue
+
             if key in ["links", "profile_image"]:
                 link = Link.parse(value)
                 setattr(user, key, link)
@@ -122,6 +130,10 @@ class Stat(Model):
     def parse(cls, data):
         stat = cls()
         for key, value in data.items():
+            if not value:
+                setattr(stat, key, value)
+                continue
+
             if key == "links":
                 link = Link.parse(value)
                 setattr(stat, key, link)
@@ -138,14 +150,18 @@ class Collection(Model):
 
     @classmethod
     def parse(cls, data):
-        stat = cls()
+        collection = cls()
         for key, value in data.items():
+            if not value:
+                setattr(collection, key, value)
+                continue
+
             if key == "cover_photo":
                 photo = Photo.parse(value)
-                setattr(stat, key, photo)
+                setattr(collection, key, photo)
             elif key == "user":
                 user = User.parse(value)
-                setattr(stat, key, user)
+                setattr(collection, key, user)
             else:
-                setattr(stat, key, value)
-        return stat
+                setattr(collection, key, value)
+        return collection

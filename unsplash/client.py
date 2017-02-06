@@ -21,7 +21,11 @@ class Client(object):
         if not self._is_2xx(response.status_code):
             errors = response.json().get("errors")
             raise UnsplashError(errors[0] if errors else None)
-        return response.json()
+        try:
+            result = response.json()
+        except ValueError:
+            result = None
+        return result
 
     def _get(self, url, params=None, **kwargs):
         return self._request(url, "get", params=params, **kwargs)
