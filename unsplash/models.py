@@ -139,7 +139,11 @@ class Stat(Model):
     def parse(cls, data):
         stat = cls()
         for key, value in data.items():
-            setattr(stat, key, value)
+            if key == "links":
+                link = Link.parse(value)
+                setattr(stat, key, link)
+            else:
+                setattr(stat, key, value)
         return stat
 
 

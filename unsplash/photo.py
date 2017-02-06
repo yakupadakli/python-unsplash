@@ -1,4 +1,6 @@
 from unsplash.client import Client
+from unsplash.models import Photo as PhotoModel
+from unsplash.models import Stat as StatModel
 
 
 class Photo(Client):
@@ -16,7 +18,8 @@ class Photo(Client):
             "per_page": per_page,
             "order_by": order_by
         }
-        return self._get(url, params=params)
+        result = self._get(url, params=params)
+        return PhotoModel.parse_list(result)
 
     def all(self, page=1, per_page=10, order_by="latest"):
         return self._all("/photos", page=page, per_page=per_page, order_by=order_by)
@@ -31,7 +34,8 @@ class Photo(Client):
             "height": height,
             "rect": rect
         }
-        return self._get(url, params=params)
+        result = self._get(url, params=params)
+        return PhotoModel.parse(result)
 
     def search(self, query, category=None, orientation=None, page=1, per_page=10):
         if orientation and orientation not in self.orientation_values:
@@ -44,7 +48,8 @@ class Photo(Client):
             "per_page": per_page
         }
         url = "/photos/search"
-        return self._get(url, params=params)
+        result = self._get(url, params=params)
+        return PhotoModel.parse_list(result)
 
     def random(self, count=1, **kwargs):
         kwargs.update({"count": count})
@@ -52,12 +57,15 @@ class Photo(Client):
         if orientation and orientation not in self.orientation_values:
             raise Exception()
         url = "/photos/random"
-        return self._get(url, params=kwargs)
+        result = self._get(url, params=kwargs)
+        return PhotoModel.parse_list(result) if len(result) > 1 else PhotoModel.parse(result)
 
     def stats(self, photo_id):
         url = "/photos/%s/stats" % photo_id
-        return self._get(url)
+        result = self._get(url)
+        return StatModel.parse(result)
 
+    # ToDO
     def download(self, photo_id):
         url = "/photos/%s/download" % photo_id
         return self._get(url)
@@ -69,8 +77,10 @@ class Photo(Client):
 
     def like(self, photo_id):
         url = "/photos/%s/like" % photo_id
-        return self._post(url)
+        result = self._post(url)
+        return PhotoModel.parse(result)
 
     def unlike(self, photo_id):
         url = "/photos/%s/like" % photo_id
-        return self._delete(url)
+        result = self._delete(url)
+        return PhotoModel.parse(result)
