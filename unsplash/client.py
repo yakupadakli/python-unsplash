@@ -4,6 +4,11 @@ from unsplash.error import UnsplashError
 
 
 class Client(object):
+    """
+    Unsplash Client
+
+    HTTP connections to and communication with the Unsplash API.
+    """
 
     def __init__(self, api, **kwargs):
         self.api = api
@@ -11,6 +16,7 @@ class Client(object):
     def _request(self, url, method, params=None, data=None, **kwargs):
         url = "%s%s" % (self.api.base_url, url)
         headers = self.get_auth_header()
+        headers.update(self.get_version_header())
         headers.update(kwargs.pop("headers", {}))
 
         try:
@@ -40,7 +46,22 @@ class Client(object):
         return self._request(url, "put", data=data, **kwargs)
 
     def get_auth_header(self):
-        return {"Authorization": "Bearer %s" % self.api.access_token}
+        """
+        Getting the authorization header according to the authentication procedure
+
+        :return [dict]: Authorization header
+        """
+        if self.api.is_authenticated:
+            return {"Authorization": "Bearer %s" % self.api.access_token}
+        return {"Authorization": "Client-ID %s" % self.api.client_id}
+
+    def get_version_header(self):
+        """
+        Getting Version header
+
+        :return [dict]: Accept-Version header
+        """
+        return {"Accept-Version": self.api.api_version}
 
     @staticmethod
     def _is_1xx(status_code):
