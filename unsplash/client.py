@@ -1,6 +1,6 @@
 import requests
 
-from unsplash.error import UnsplashError
+from unsplash.errors import UnsplashError
 
 
 class Client(object):

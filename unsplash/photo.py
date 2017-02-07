@@ -1,7 +1,6 @@
 # coding=utf-8
 
 from unsplash.client import Client
-from unsplash.error import UnsplashError
 from unsplash.models import Photo as PhotoModel
 from unsplash.models import Stat as StatModel
 

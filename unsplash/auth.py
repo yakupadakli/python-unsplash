@@ -1,7 +1,7 @@
 from oauthlib.oauth2 import OAuth2Error
 from requests_oauthlib.oauth2_session import OAuth2Session
 
-from unsplash.error import UnsplashAuthError
+from unsplash.errors import UnsplashAuthError
 
 
 class Auth(object):
