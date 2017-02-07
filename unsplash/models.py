@@ -156,7 +156,7 @@ class Collection(Model):
                 setattr(collection, key, value)
                 continue
 
-            if key == "cover_photo":
+            if key in ["cover_photo", "photos"]:
                 photo = Photo.parse(value)
                 setattr(collection, key, photo)
             elif key == "user":
