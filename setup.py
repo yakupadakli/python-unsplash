@@ -10,22 +10,23 @@ requirements = [str(req.req) for req in install_requirements]
 
 setup(
     name="python-unsplash",
-    version="1.0.0",
+    version="1.0.0a1",
     description="A Python client for the Unsplash API.",
     license="MIT",
     author="Yakup Adaklı",
     author_email="yakup.adakli@gmail.com",
     url="http://github.com/yakupadakli/python-unsplash.git",
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(exclude=["tests"]),
     install_requires=requirements,
     keywords="unsplash library",
     classifiers=[
-        'Development Status :: 1 - Beta',
-        'Topic :: Software Development :: Libraries',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
+        "Development Status :: 3 - Alpha",
+        "Topic :: Software Development :: Libraries",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
     ],
-    zip_safe=True
+    zip_safe=True,
 )
