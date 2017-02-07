@@ -1,4 +1,5 @@
 from unsplash.client import Client
+from unsplash.models import Photo as PhotoModel, Collection as CollectionModel, User as UserModel
 
 
 class Search(Client):
@@ -16,12 +17,15 @@ class Search(Client):
 
     def photos(self, query, page=1, per_page=10):
         url = "/search/photos"
-        return self._search(url, query, page=page, per_page=per_page)
+        result = self._search(url, query, page=page, per_page=per_page)
+        return PhotoModel.parse_list(result)
 
     def collections(self, query, page=1, per_page=10):
         url = "/search/collections"
-        return self._search(url, query, page=page, per_page=per_page)
+        result = self._search(url, query, page=page, per_page=per_page)
+        return CollectionModel.parse_list(result)
 
     def users(self, query, page=1, per_page=10):
         url = "/search/users"
-        return self._search(url, query, page=page, per_page=per_page)
+        result = self._search(url, query, page=page, per_page=per_page)
+        return UserModel.parse_list(result)
