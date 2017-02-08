@@ -23,11 +23,12 @@ class Search(Client):
         :param query [string]: Search terms.
         :param page [integer]: Page number to retrieve. (Optional; default: 1)
         :param per_page [integer]: Number of items per page. (Optional; default: 10)
-        :return: [Array]: A single page of the curated Photo list.
+        :return: [dict]: {u'total': 0, u'total_pages': 0, u'results': [Photo]}
         """
         url = "/search/photos"
-        result = self._search(url, query, page=page, per_page=per_page)
-        return PhotoModel.parse_list(result)
+        data = self._search(url, query, page=page, per_page=per_page)
+        data["results"] = PhotoModel.parse_list(data.get("results"))
+        return data
 
     def collections(self, query, page=1, per_page=10):
         """
@@ -36,11 +37,12 @@ class Search(Client):
         :param query [string]: Search terms.
         :param page [integer]: Page number to retrieve. (Optional; default: 1)
         :param per_page [integer]: Number of items per page. (Optional; default: 10)
-        :return: [Array]: A single page of the curated Collection list.
+        :return: [dict]: {u'total': 0, u'total_pages': 0, u'results': [Collection]}
         """
         url = "/search/collections"
-        result = self._search(url, query, page=page, per_page=per_page)
-        return CollectionModel.parse_list(result)
+        data = self._search(url, query, page=page, per_page=per_page)
+        data["results"] = CollectionModel.parse_list(data.get("results"))
+        return data
 
     def users(self, query, page=1, per_page=10):
         """
@@ -49,8 +51,9 @@ class Search(Client):
         :param query [string]: Search terms.
         :param page [integer]: Page number to retrieve. (Optional; default: 1)
         :param per_page [integer]: Number of items per page. (Optional; default: 10)
-        :return: [Array]: A single page of the curated User list.
+        :return: [dict]: {u'total': 0, u'total_pages': 0, u'results': [User]}
         """
         url = "/search/users"
-        result = self._search(url, query, page=page, per_page=per_page)
-        return UserModel.parse_list(result)
+        data = self._search(url, query, page=page, per_page=per_page)
+        data["results"] = UserModel.parse_list(data.get("results"))
+        return data

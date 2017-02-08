@@ -59,6 +59,9 @@ class Photo(Client):
         """
         Retrieve a single photo.
 
+        Note: Supplying the optional w or h parameters will result
+        in the custom photo URL being added to the 'urls' object:
+
         :param photo_id [string]: The photo’s ID. Required.
         :param width [integer]: Image width in pixels.
         :param height [integer]: Image height in pixels.
@@ -67,8 +70,8 @@ class Photo(Client):
         """
         url = "/photos/%s" % photo_id
         params = {
-            "width": width,
-            "height": height,
+            "w": width,
+            "h": height,
             "rect": rect
         }
         result = self._get(url, params=params)
@@ -141,7 +144,7 @@ class Photo(Client):
             raise Exception()
         url = "/photos/random"
         result = self._get(url, params=kwargs)
-        return PhotoModel.parse_list(result) if len(count) > 1 else PhotoModel.parse(result)
+        return PhotoModel.parse_list(result)
 
     def stats(self, photo_id):
         """
