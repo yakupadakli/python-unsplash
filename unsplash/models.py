@@ -114,9 +114,11 @@ class User(Model):
             if key in ["links", "profile_image"]:
                 link = Link.parse(value)
                 setattr(user, key, link)
+            elif key == "photos":
+                photo = Photo.parse_list(value)
+                setattr(user, key, photo)
             else:
                 setattr(user, key, value)
-            setattr(user, key, value)
         return user
 
 
@@ -156,7 +158,7 @@ class Collection(Model):
                 setattr(collection, key, value)
                 continue
 
-            if key in ["cover_photo", "photos"]:
+            if key == "cover_photo":
                 photo = Photo.parse(value)
                 setattr(collection, key, photo)
             elif key == "user":

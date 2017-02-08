@@ -10,7 +10,18 @@ class Auth(object):
     BASE_API_URL = "https://api.unsplash.com"
     BASE_AUTH_URL = "https://unsplash.com"
 
-    def __init__(self, client_id, client_secret, redirect_uri, code=None, scope=None):
+    def __init__(self, client_id, client_secret, redirect_uri, token=None, code=None, scope=None):
+        """
+
+
+        :param client_id [string]: Client id obtained during registration.
+        :param client_secret [string]: Client secret obtained during registration.
+        :param redirect_uri [string]: Redirect URI you registered as callback.
+        :param token [dict]: Token dictionary, must include access_token and token_type.
+        :param code [string]: Authorization code to get access token.
+        :param scope [list]: List of scopes you wish to request access to.
+        :raise UnsplashAuthError: OAuth2Session has OAuth2Error.
+        """
         self.access_token_url = "%s/oauth/token" % self.BASE_AUTH_URL
         self.authorization_url = "%s/oauth/authorize" % self.BASE_AUTH_URL
         self.client_id = client_id
@@ -33,7 +44,14 @@ class Auth(object):
         self.scope = scope or self.scope_list
 
         try:
-            if code:
+            if token:
+                self.oauth = OAuth2Session(
+                    client_id=self.client_id, redirect_uri=self.redirect_uri, scope=self.scope, token=token
+                )
+                self.access_token = self.oauth.access_token
+                self.token = token
+                self.is_authenticated = True
+            elif code:
                 self.oauth = OAuth2Session(client_id=self.client_id, redirect_uri=self.redirect_uri, scope=self.scope)
                 self.access_token = self.get_access_token(code)
                 self.is_authenticated = True
