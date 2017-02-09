@@ -189,7 +189,7 @@ class Collection(Client):
             "collection_id": collection_id,
             "photo_id": photo_id
         }
-        result = self._post(url, data=data)
+        result = self._post(url, data=data) or {}
         return CollectionModel.parse(result.get("collection")), PhotoModel.parse(result.get("photo"))
 
     def remove_photo(self, collection_id, photo_id):
@@ -206,5 +206,5 @@ class Collection(Client):
             "collection_id": collection_id,
             "photo_id": photo_id
         }
-        result = self._delete(url, data=data)
+        result = self._delete(url, data=data) or {}
         return CollectionModel.parse(result.get("collection")), PhotoModel.parse(result.get("photo"))

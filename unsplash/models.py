@@ -9,7 +9,8 @@ class Model(object):
     def __init__(self, **kwargs):
         self._repr_values = ["id"]
 
-    def parse(self, data):
+    @classmethod
+    def parse(cls, data):
         """Parse a JSON object into a model instance."""
         raise NotImplementedError
 
@@ -17,6 +18,7 @@ class Model(object):
     def parse_list(cls, data):
         """Parse a list of JSON objects into a result set of model instances."""
         results = ResultSet()
+        data = data or []
         for obj in data:
             if obj:
                 results.append(cls.parse(obj))
@@ -32,7 +34,8 @@ class Photo(Model):
 
     @classmethod
     def parse(cls, data):
-        photo = cls()
+        data = data or {}
+        photo = cls() if data else None
         for key, value in data.items():
             if not value:
                 setattr(photo, key, value)
@@ -63,7 +66,8 @@ class Exif(Model):
 
     @classmethod
     def parse(cls, data):
-        exif = cls()
+        data = data or {}
+        exif = cls() if data else None
         for key, value in data.items():
             setattr(exif, key, value)
         return exif
@@ -77,7 +81,8 @@ class Link(Model):
 
     @classmethod
     def parse(cls, data):
-        link = cls()
+        data = data or {}
+        link = cls() if data else None
         for key, value in data.items():
             setattr(link, key, value)
         return link
@@ -91,7 +96,8 @@ class Location(Model):
 
     @classmethod
     def parse(cls, data):
-        location = cls()
+        data = data or {}
+        location = cls() if data else None
         for key, value in data.items():
             setattr(location, key, value)
         return location
@@ -105,7 +111,8 @@ class User(Model):
 
     @classmethod
     def parse(cls, data):
-        user = cls()
+        data = data or {}
+        user = cls() if data else None
         for key, value in data.items():
             if not value:
                 setattr(user, key, value)
@@ -130,7 +137,8 @@ class Stat(Model):
 
     @classmethod
     def parse(cls, data):
-        stat = cls()
+        data = data or {}
+        stat = cls() if data else None
         for key, value in data.items():
             if not value:
                 setattr(stat, key, value)
@@ -152,7 +160,8 @@ class Collection(Model):
 
     @classmethod
     def parse(cls, data):
-        collection = cls()
+        data = data or {}
+        collection = cls() if data else None
         for key, value in data.items():
             if not value:
                 setattr(collection, key, value)
@@ -164,6 +173,9 @@ class Collection(Model):
             elif key == "user":
                 user = User.parse(value)
                 setattr(collection, key, user)
+            elif key == "links":
+                link = Link.parse(value)
+                setattr(collection, key, link)
             else:
                 setattr(collection, key, value)
         return collection

@@ -5,9 +5,8 @@ from unsplash.models import Photo, Stat
 
 
 class PhotoTest(UnsplashTestCase):
-    setup_done = False
-    default_photo_id = u'KSap1iDftvQ'
-    default_search_query = u'nature'
+    default_photo_id = u"KSap1iDftvQ"
+    default_search_query = u"nature"
 
     def test_all(self):
         photos = self.api.photo.all(per_page=2)
@@ -24,6 +23,7 @@ class PhotoTest(UnsplashTestCase):
     def test_get(self):
         photo = self.api.photo.get(self.default_photo_id)
         self.assertIsNotNone(photo)
+        self.assertIsInstance(photo, Photo)
 
     def test_search_photo(self):
         photos = self.api.photo.search(self.default_search_query, per_page=2)
@@ -50,5 +50,5 @@ class PhotoTest(UnsplashTestCase):
         self.assertIsInstance(photo, Photo)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

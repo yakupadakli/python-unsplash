@@ -24,10 +24,10 @@ class Client(object):
         except Exception, e:
             raise UnsplashError("Connection error: %s" % e)
 
-        if not self._is_2xx(response.status_code):
-            errors = response.json().get("errors")
-            raise UnsplashError(errors[0] if errors else None)
         try:
+            if not self._is_2xx(response.status_code):
+                errors = response.json().get("errors")
+                raise UnsplashError(errors[0] if errors else None)
             result = response.json()
         except ValueError:
             result = None
