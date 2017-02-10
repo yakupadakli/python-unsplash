@@ -6,7 +6,7 @@ from unsplash.models import Photo, Collection
 
 
 class CollectionTest(UnsplashTestCase):
-    default_collection_id = u"544406"
+    default_collection_id = u"547584"
     default_search_query = u"nature"
     default_photo_id = u"KSap1iDftvQ"
     prefix = u"yakupa"
