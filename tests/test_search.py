@@ -1,7 +1,7 @@
 import unittest
 
-from .config import UnsplashTestCase
-from unsplash.models import Photo, Stat, Collection, User
+from tests.config import UnsplashTestCase
+from unsplash.models import Photo, Collection, User
 
 
 class PhotoTest(UnsplashTestCase):

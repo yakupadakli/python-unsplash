@@ -1,7 +1,7 @@
 import unittest
 import uuid
 
-from .config import UnsplashTestCase
+from tests.config import UnsplashTestCase
 from unsplash.models import Photo, Collection
 
 

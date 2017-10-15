@@ -9,7 +9,7 @@ client_secret = os.environ.get('CLIENT_SECRET', '')
 redirect_uri = os.environ.get('REDIRECT_URI', '')
 
 # Sample Authorization code
-code = ""
+code = os.environ.get("UNSPLASH_CODE", '')
 
 # Sample token
 token = {

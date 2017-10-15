@@ -1,0 +1,17 @@
+language: python
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.6
+
+# command to install dependencies
+install: 
+  - pip install -r requirements.txt
+
+notifications:
+  slack: python-tvmaze:p1bPXrwJC4kDjOX2kA531THu
+
+# command to run tests
+script: 
+  py.test

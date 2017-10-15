@@ -1,6 +1,6 @@
 import unittest
 
-from .config import UnsplashTestCase
+from tests.config import UnsplashTestCase
 from unsplash.models import Photo, Stat
 
 
