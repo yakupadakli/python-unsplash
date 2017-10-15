@@ -11,6 +11,6 @@ __author__ = "Yakup Adaklı"
 __license__ = "MIT"
 
 
-from .api import Api                                        # noqa
-from .auth import Auth                                      # noqa
-from .errors import UnsplashError, UnsplashAuthError        # noqa
+from unsplash.api import Api
+from unsplash.auth import Auth
+from unsplash.errors import UnsplashError, UnsplashAuthError

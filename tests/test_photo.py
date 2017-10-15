@@ -1,6 +1,6 @@
 import unittest
 
-from .config import UnsplashTestCase
+from tests.config import UnsplashTestCase, SKIP_TEST
 from unsplash.models import Photo, Stat
 
 
@@ -15,6 +15,9 @@ class PhotoTest(UnsplashTestCase):
         self.assertEqual(len(photos), 2)
 
     def test_curated(self):
+        if SKIP_TEST:
+            return True
+
         curated_photos = self.api.photo.curated(per_page=2)
         self.assertIsInstance(curated_photos, list)
         self.assertIsInstance(curated_photos[0], Photo)
@@ -26,26 +29,41 @@ class PhotoTest(UnsplashTestCase):
         self.assertIsInstance(photo, Photo)
 
     def test_search_photo(self):
+        if SKIP_TEST:
+            return True
+
         photos = self.api.photo.search(self.default_search_query, per_page=2)
         self.assertEqual(len(photos), 2)
         self.assertIsInstance(photos, list)
         self.assertIsInstance(photos[0], Photo)
 
     def test_random(self):
+        if SKIP_TEST:
+            return True
+
         photos = self.api.photo.random(count=2)
         self.assertEqual(len(photos), 2)
         self.assertIsInstance(photos, list)
         self.assertIsInstance(photos[0], Photo)
 
     def test_stats(self):
+        if SKIP_TEST:
+            return True
+
         stat = self.api.photo.stats(self.default_photo_id)
         self.assertIsInstance(stat, Stat)
 
     def test_like(self):
+        if SKIP_TEST:
+            return True
+
         photo = self.api.photo.like(self.default_photo_id)
         self.assertIsInstance(photo, Photo)
 
     def test_unlike(self):
+        if SKIP_TEST:
+            return True
+
         photo = self.api.photo.like(self.default_photo_id)
         self.assertIsInstance(photo, Photo)
 
