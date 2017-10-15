@@ -12,6 +12,7 @@ class Client(object):
 
     def __init__(self, api, **kwargs):
         self.api = api
+        self.rate_limit_error = 'Rate Limit Exceeded'
 
     def _request(self, url, method, params=None, data=None, **kwargs):
         url = "%s%s" % (self.api.base_url, url)
@@ -21,15 +22,18 @@ class Client(object):
 
         try:
             response = requests.request(method, url, params=params, data=data, headers=headers, **kwargs)
-        except Exception, e:
+        except Exception as e:
             raise UnsplashError("Connection error: %s" % e)
 
         try:
             if not self._is_2xx(response.status_code):
-                errors = response.json().get("errors")
-                raise UnsplashError(errors[0] if errors else None)
+                if response.text == self.rate_limit_error:
+                    raise UnsplashError(self.rate_limit_error)
+                else:
+                    errors = response.json().get("errors")
+                    raise UnsplashError(errors[0] if errors else None)
             result = response.json()
-        except ValueError:
+        except ValueError as e:
             result = None
         return result
 

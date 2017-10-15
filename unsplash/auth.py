@@ -55,7 +55,7 @@ class Auth(object):
                 self.oauth = OAuth2Session(client_id=self.client_id, redirect_uri=self.redirect_uri, scope=self.scope)
                 self.access_token = self.get_access_token(code)
                 self.is_authenticated = True
-        except OAuth2Error, e:
+        except OAuth2Error as e:
             raise UnsplashAuthError(e)
 
     def get_access_token(self, code):

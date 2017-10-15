@@ -1,6 +1,6 @@
 import unittest
 
-from tests.config import UnsplashTestCase
+from tests.config import UnsplashTestCase, SKIP_TEST
 from unsplash.models import Photo, Collection, User
 
 
@@ -26,6 +26,9 @@ class PhotoTest(UnsplashTestCase):
         self.assertEqual(len(collections), 2)
 
     def test_users(self):
+        if SKIP_TEST:
+            return True
+
         user_dict = self.api.search.users(self.default_search_user_query, per_page=1)
         users = user_dict.get("results")
         self.assertIsInstance(user_dict, dict)

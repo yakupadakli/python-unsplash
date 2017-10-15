@@ -4,6 +4,8 @@ import unittest
 from unsplash.auth import Auth
 from unsplash.api import Api
 
+SKIP_TEST = True
+
 client_id = os.environ.get('CLIENT_ID', '')
 client_secret = os.environ.get('CLIENT_SECRET', '')
 redirect_uri = os.environ.get('REDIRECT_URI', '')
