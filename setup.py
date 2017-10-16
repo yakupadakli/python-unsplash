@@ -10,7 +10,7 @@ requirements = [str(req.req) for req in install_requirements]
 
 setup(
     name="python-unsplash",
-    version="1.0.0a1",
+    version="1.0.0a2",
     description="A Python client for the Unsplash API.",
     license="MIT",
     author="Yakup Adaklı",
@@ -24,9 +24,10 @@ setup(
         "Topic :: Software Development :: Libraries",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
     ],
     zip_safe=True,
 )
