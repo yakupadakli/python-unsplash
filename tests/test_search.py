@@ -18,6 +18,9 @@ class PhotoTest(UnsplashTestCase):
         self.assertEqual(len(photos), 2)
 
     def test_collections(self):
+        if SKIP_TEST:
+            return True
+
         collection_dict = self.api.search.collections(self.default_search_query, per_page=2)
         collections = collection_dict.get("results")
         self.assertIsInstance(collection_dict, dict)

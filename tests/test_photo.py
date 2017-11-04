@@ -24,6 +24,9 @@ class PhotoTest(UnsplashTestCase):
         self.assertEqual(len(curated_photos), 2)
 
     def test_get(self):
+        if SKIP_TEST:
+            return True
+
         photo = self.api.photo.get(self.default_photo_id)
         self.assertIsNotNone(photo)
         self.assertIsInstance(photo, Photo)
