@@ -135,3 +135,115 @@ Get a list of collections created by the user.
 | per_page  | Number of items per page. (default: 10) | optional |
 
     api.user.collections("yakupa")
+
+
+### Photo
+
+##### Photo all
+
+Get a single page from the list of all photos.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| page  | Page number to retrieve. (default: 1)  | optional |
+| per_page  | Number of items per page. (default: 10) | optional |
+| order_by  | How to sort the photos. Optional. (Valid values: latest, oldest, popular; default: latest) | optional |
+
+
+    api.photo.all()
+
+
+##### Photo curated
+
+Get a single page from the list of the curated photos.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| page  | Page number to retrieve. (default: 1)  | optional |
+| per_page  | Number of items per page. (default: 10) | optional |
+| order_by  | How to sort the photos. Optional. (Valid values: latest, oldest, popular; default: latest) | optional |
+
+
+    api.photo.curated()
+
+
+##### Photo get
+
+Get a single page from the list of the curated photos.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The photo’s ID.  | required |
+| w  | Image width in pixels. | optional |
+| h  | Image height in pixels. | optional |
+| rect  | 4 comma-separated integers representing x, y, width, height of the cropped rectangle. | optional |
+
+
+    api.photo.get("Dwu85P9SOIk")
+
+
+##### Photo random
+
+Retrieve a single random photo, given optional filters.
+
+Note: You can’t use the collections and query parameters in the same request
+
+Note: When supplying a count parameter - and only then - 
+the response will be an array of photos, even if the value of count is 1.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| collections  | Public collection ID(‘s) to filter selection. If multiple, comma-separated | optional |
+| featured  | Limit selection to featured photos. | optional |
+| username  | Limit selection to a single user. | optional |
+| query  | Limit selection to photos matching a search term. | optional |
+| w  | Image width in pixels. | optional |
+| h  | Image height in pixels. | optional |
+| orientation  | Filter search results by photo orientation. Valid values are landscape, portrait, and squarish. | optional |
+| count  | The number of photos to return. (Default: 1; max: 30) | optional |
+
+
+    api.photo.random()
+
+
+##### Photo stats
+
+Retrieve total number of downloads, views and likes of a single photo, 
+as well as the historical breakdown of these stats in a specific timeframe (default is 30 days).
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The public id of the photo. | required |
+| resolution  | The frequency of the stats. | optional |
+| quantity  | The amount of for each stat. | optional |
+
+
+    api.photo.stats("LF8gK8-HGSg")
+
+
+##### Photo like
+
+Like a photo on behalf of the logged-in user. This requires the write_likes scope.
+
+Note: This action is idempotent; sending the POST request to a single photo multiple times has no additional effect.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The photo’s ID. | required |
+
+
+    api.photo.like("LF8gK8-HGSg")
+
+
+##### Photo unlike
+
+Remove a user’s like of a photo.
+
+Note: This action is idempotent; sending the DELETE request to a single photo multiple times has no additional effect.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The photo’s ID. | required |
+
+
+    api.photo.unlike("LF8gK8-HGSg")
