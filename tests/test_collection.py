@@ -36,6 +36,9 @@ class CollectionTest(UnsplashTestCase):
         self.assertEqual(len(curated_collections), 2)
 
     def test_get(self):
+        if SKIP_TEST:
+            return True
+
         collection = self.api.collection.get(self.default_collection_id)
         self.assertIsNotNone(collection)
         self.assertIsInstance(collection, Collection)
