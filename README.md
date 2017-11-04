@@ -247,3 +247,48 @@ Note: This action is idempotent; sending the DELETE request to a single photo mu
 
 
     api.photo.unlike("LF8gK8-HGSg")
+
+
+### Search
+
+##### Search photos
+
+Get a single page of photo results for a query.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| query  | Search terms. | required |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+| collections  | Collection ID(‘s) to narrow search. If multiple, comma-separated. | optional |
+
+
+    api.search.photos("office")
+
+
+##### Search collections
+
+Get a single page of collection results for a query.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| query  | Search terms. | required |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.search.collections("office")
+
+
+##### Search users
+
+Get a single page of user results for a query.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| query  | Search terms. | required |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.search.users("yakupa")
