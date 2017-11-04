@@ -292,3 +292,182 @@ Get a single page of user results for a query.
 
 
     api.search.users("yakupa")
+
+
+### Collections
+
+##### Collections all
+
+Get a single page from the list of all collections.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.collection.all()
+
+
+##### Collections featured
+
+Get a single page from the list of featured collections.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.collection.featured()
+
+
+##### Collections curated
+
+Get a single page from the list of curated collections.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.collection.curated()
+
+
+##### Collections get
+
+Retrieve a single collection. 
+To view a user’s private collections, the read_collections scope is required.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The collections’s ID. | required |
+
+
+    api.collection.get("547584")
+
+
+##### Collections get curated
+
+Retrieve a single curated collection. 
+To view a user’s private collections, the read_collections scope is required.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The curated collections’s ID. | required |
+
+
+    api.collection.get_curated("547584")
+
+
+##### Collections photos
+
+Retrieve a collection’s photos.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The collections’s ID. | required |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.collection.photos("547584")
+
+
+##### Collections curated photos
+
+Retrieve a curated collection’s photos.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The curated collections’s ID. | required |
+| page  | Page number to retrieve. | optional |
+| per_page  | Number of items per page. | optional |
+
+
+    api.collection.curated_photos("547584")
+
+
+##### Collections related
+
+Retrieve a list of collections related to this one.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The collection’s ID. | required |
+
+
+    api.collection.related("547584")
+
+
+##### Collections create
+
+Create a new collection. 
+This requires the write_collections scope.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| title  | The title of the collection. | required |
+| description  | The collection’s description. | optional |
+| private  | Whether to make this collection private. | optional |
+
+
+    api.collection.create("New Test Collection")
+
+
+##### Collections update
+
+Update an existing collection belonging to the logged-in user. 
+This requires the write_collections scope.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The collection’s ID. | required |
+| title  | The title of the collection. | optional |
+| description  | The collection’s description. | optional |
+| private  | Whether to make this collection private. | optional |
+
+
+    api.collection.update("547584")
+
+
+##### Collections delete
+
+Delete a collection belonging to the logged-in user.
+This requires the write_collections scope.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| id  | The collection’s ID. | required |
+
+
+    api.collection.delete("547584")
+
+
+##### Collections add photo
+
+Add a photo to one of the logged-in user’s collections.
+Requires the write_collections scope.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| collection_id  | The collection’s ID. | required |
+| photo_id  | The photo’s ID. | required |
+
+
+    api.collection.add_photo("547584", "KSap1iDftvQ")
+
+
+##### Collections remove photo
+
+Remove a photo from one of the logged-in user’s collections.
+Requires the write_collections scope.
+
+| param  | Description |  |
+| ------------- | ------------- | ------------- |
+| collection_id  | The collection’s ID. | required |
+| photo_id  | The photo’s ID. | required |
+
+
+    api.collection.remove_photo("547584", "KSap1iDftvQ")
