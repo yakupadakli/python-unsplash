@@ -471,3 +471,21 @@ Requires the write_collections scope.
 
 
     api.collection.remove_photo("547584", "KSap1iDftvQ")
+
+
+### Stats
+
+##### Stats total
+
+Get a list of counts for all of Unsplash.
+
+
+    api.stat.total()
+
+
+##### Stats total
+
+Get the overall Unsplash stats for the past 30 days.
+
+
+    api.stat.month()
