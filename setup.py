@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import uuid
-
 from setuptools import setup, find_packages
 
 setup(
     name="python-unsplash",
-    version="1.0.0",
+    version="1.1.0",
     description="A Python client for the Unsplash API.",
     license="MIT",
     author="Yakup Adaklı",
