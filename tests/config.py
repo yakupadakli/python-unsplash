@@ -47,10 +47,11 @@ class UnsplashTestCase(unittest.TestCase):
     default_user_name = u'yakupa'
     is_authenticated = False
     scope = scope
-    token = token
+    token = ''
     code = code
 
     def setUp(self):
+        print(self)
         if self.token:
             self.auth = Auth(client_id, client_secret, redirect_uri, scope=scope, token=token)
             self.is_authenticated = True
