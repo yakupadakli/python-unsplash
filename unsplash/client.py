@@ -1,5 +1,6 @@
 import requests
 
+from unsplash import messages
 from unsplash.errors import UnsplashError
 
 
@@ -12,7 +13,7 @@ class Client(object):
 
     def __init__(self, api, **kwargs):
         self.api = api
-        self.rate_limit_error = 'Rate Limit Exceeded'
+        self.rate_limit_error = messages.rate_limit_error
 
     def _request(self, url, method, params=None, data=None, **kwargs):
         url = "%s%s" % (self.api.base_url, url)

@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="python-unsplash",
-    version="1.1.0",
+    version="1.2.0",
     description="A Python client for the Unsplash API.",
     license="MIT",
     author="Yakup Adaklı",
@@ -25,9 +25,10 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.11",
     ],
     zip_safe=True,
 )
