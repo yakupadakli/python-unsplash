@@ -1,8 +1,11 @@
+import six
+
+
 class UnsplashError(Exception):
     """Unsplash exception"""
 
     def __init__(self, message, **kwargs):
-        self.message = str(message) if message else "Unknown error"
+        self.message = six.text_type(message) if message else "Unknown error"
         super(UnsplashError, self).__init__(message, **kwargs)
 
     def __str__(self):
