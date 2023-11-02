@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="python-unsplash",
-    version="1.2.1",
+    version="1.2.2",
     description="A Python client for the Unsplash API.",
     license="MIT",
     author="Yakup Adaklı",

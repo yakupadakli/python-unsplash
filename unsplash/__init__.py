@@ -6,7 +6,7 @@
 
 """A library that provides a Python interface to the Unsplash API"""
 
-__version__ = "1.0.0a1"
+__version__ = "1.2.2"
 __author__ = "Yakup Adaklı"
 __license__ = "MIT"
 
